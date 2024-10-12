@@ -38,16 +38,16 @@
 
 <div class="w-full p-4 pb-0" class:pt-0={showOnlyContent || removeTopPadding}>
 	{#if showOnlyContent}
-		<p>{m.content}</p>
+		<p class="bg- text-neutral-300">{m.content}</p>
 	{:else}
 		<div class="font-semibold text-white">
 			{m.authorName}
 			{#if m.createdAt}
-				<span class="ml-1 text-[0.8rem] font-thin leading-snug tracking-wide text-slate-400">
+				<span class="ml-1 text-[0.8rem] font-thin leading-snug tracking-wide text-neutral-400">
 					<time>{formattedCreatedAt}</time>
 				</span>
 			{/if}
 		</div>
-		<p>{m.content}</p>
+		<p class="text-neutral-300">{m.content}</p>
 	{/if}
 </div>

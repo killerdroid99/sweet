@@ -3,7 +3,7 @@
 	import Messages from './Messages.svelte';
 
 	const { serverId, channelId } = $props();
-	const socket = $state(new WebSocket(`ws://localhost:3000/ws/${serverId}/${channelId}`));
+	let socket = $state() as WebSocket;
 	type Tmessage = {
 		id: string;
 		content: string;
@@ -27,7 +27,7 @@
 	const scrollToBottom = () => {
 		if (chatContainer) {
 			chatContainer.scrollBy({
-				top: chatContainer.scrollHeight,
+				top: chatContainer.scrollHeight
 			});
 		}
 	};
@@ -38,6 +38,10 @@
 			messages = [...messages, m];
 		};
 	};
+
+	$effect(() => {
+		socket = new WebSocket(`ws://localhost:3000/ws/${serverId}/${channelId}`);
+	});
 
 	$effect(() => {
 		getChannelMessages().then(() => {
@@ -54,19 +58,19 @@
 <div class="col-start-3 col-end-4" id="Chat">
 	<div
 		bind:this={chatContainer}
-		class="row-start-1 row-end-2 h-[calc(100dvh-8rem)] overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-indigo-500"
+		class="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-indigo-500 row-start-1 row-end-2 h-[calc(100dvh-8rem)] overflow-y-scroll"
 	>
 		<Messages {...messages} />
 	</div>
 	<input
-		class="row-start-2 row-end-3 m-3 h-12 resize-none rounded border-none bg-slate-900 p-3 outline-none"
+		class="row-start-2 row-end-3 m-3 h-12 resize-none rounded border-none bg-neutral-900 p-3 outline-none"
 		onkeyupcapture={(e) => {
 			if (e.key === 'Enter') {
 				socket.send(e.currentTarget.value);
 				e.currentTarget.value = '';
 			}
 		}}
-	/>
+	/>inp
 </div>
 
 <style scoped>

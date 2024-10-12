@@ -13,8 +13,7 @@
 </script>
 
 <div class="rounded" in:fly={slideIn} out:fly={slideOut}>
-	<div class="min-w-28 rounded bg-slate-800 p-4">
+	<div class="min-w-28 rounded bg-neutral-800 p-4">
 		{@render children()}
 	</div>
 </div>
-

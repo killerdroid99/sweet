@@ -1,20 +1,14 @@
 <script lang="ts">
 	import '$lib/css/globals.css';
-	import { user, getCurrentUser } from '$lib/stores/auth.svelte';
-	import { getJoinedServers, serverStore } from '$lib/stores/servers.svelte';
 	import Header from '$lib/components/Header.svelte';
-	import { notifications } from '$lib/stores/notifications.svelte';
-	import Notification from '$lib/components/Notification.svelte';
-	import PolkaDot from '$lib/components/icons/PolkaDot.svelte';
 	import CreateServerForm from '$lib/components/CreateServerForm.svelte';
+	import ServersAndOptions from '$lib/components/ServersAndOptions.svelte';
+	import Notifications from '$lib/components/Notifications.svelte';
+	import { getCurrentUser, user } from '$lib/stores/auth.svelte.js';
+	import { getJoinedServers, serverStore } from '$lib/stores/servers.svelte.js';
 
 	let { children } = $props();
 	let isUserLoggedIn = $derived(user.name !== undefined);
-	$inspect(serverStore).with(console.trace);
-	$effect(() => {
-		getCurrentUser();
-		getJoinedServers();
-	});
 
 	// <button onclick={() => pushNotifications('soul soul soul')}>push</button>
 	let creatingServer = $state(false);
@@ -25,6 +19,12 @@
 			}
 		});
 	});
+
+	$inspect(serverStore).with(console.trace);
+	$effect(() => {
+		getCurrentUser();
+		getJoinedServers();
+	});
 </script>
 
 <main>
@@ -34,41 +34,14 @@
 	{/if}
 
 	{#if isUserLoggedIn}
-		<div
-			id="channels-stuff"
-			class="col-start-1 col-end-2 flex flex-col items-center gap-3 border-r-2 border-r-slate-900 pl-4 pr-2 pt-3"
-		>
-			<button
-				onclick={() => {
-					creatingServer = true;
-				}}
-				class="ease grid h-10 w-10 place-items-center rounded-xl border-none bg-slate-400/20 text-2xl outline-none transition-all hover:rounded-full hover:bg-emerald-500 focus-visible:ring-2"
-			>
-				<PolkaDot />
-			</button>
-
-			<div class="my-2 h-1 w-5 rounded-full bg-slate-500"></div>
-			<div class="flex flex-col gap-3">
-				{#each serverStore.serverData as server}
-					<a href={`/${server.serverId}`} data-sveltekit-preload-data="hover">
-						<div
-							class="leading-2 grid h-10 w-10 place-items-center rounded-full bg-indigo-500 p-2 font-mono text-xl font-bold capitalize"
-						>
-							{server.serverName[0]}
-						</div>
-					</a>
-				{/each}
-			</div>
-		</div>
+		<ServersAndOptions
+			action={() => {
+				creatingServer = true;
+			}}
+		/>
 	{/if}
 	{@render children()}
-	<div class="absolute bottom-12 right-12 flex w-fit flex-col-reverse gap-4 overscroll-x-none">
-		{#each notifications.current as n}
-			<Notification>
-				{n}
-			</Notification>
-		{/each}
-	</div>
+	<Notifications />
 </main>
 
 <style scoped>
@@ -79,8 +52,5 @@
 		grid-auto-columns: 4rem 13rem auto;
 		grid-auto-rows: min-content auto;
 		overflow-y: hidden;
-	}
-	#channels-stuff {
-		height: calc(100dvh - 3rem);
 	}
 </style>

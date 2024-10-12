@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>{server?.serverName} | {channel?.name}</title>
+	<title>#{channel?.name} | {server?.serverName}</title>
 </svelte:head>
 <Channels serverId={data.serverId} />
 <ChatWindow {...data} />

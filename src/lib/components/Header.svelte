@@ -22,7 +22,7 @@
 </script>
 
 <header
-	class="z-10 col-start-1 col-end-4 row-start-1 row-end-1 flex items-center justify-between border-b-2 border-b-slate-900 bg-black/5 px-5 py-3 backdrop-blur"
+	class="z-10 col-start-1 col-end-4 row-start-1 row-end-1 flex items-center justify-between border-b-2 border-b-neutral-900 bg-black/5 px-5 py-3 backdrop-blur"
 >
 	<div>
 		<a href="/" class="sweet group -space-x-1 whitespace-nowrap text-xl">
@@ -39,7 +39,7 @@
 			<span>{user.name}</span>
 			<button
 				onclick={handleLogout}
-				class="w-fit select-none rounded-full border-none bg-rose-500 px-4 py-1 text-sm text-slate-900 outline-none ring-rose-500 ring-offset-slate-900 transition-all ease-out hover:bg-rose-500/90 focus-visible:ring-2 focus-visible:ring-offset-2"
+				class="w-fit select-none rounded-full border-none bg-red-500 px-4 py-1 text-sm text-neutral-900 outline-none ring-red-500 ring-offset-neutral-900 transition-all ease-out hover:bg-red-500/90 focus-visible:ring-2 focus-visible:ring-offset-2"
 				>Logout</button
 			>
 		{:else}
@@ -48,9 +48,3 @@
 		{/if}
 	</nav>
 </header>
-
-<style scoped>
-	.sweet {
-		@apply font-semibold;
-	}
-</style>

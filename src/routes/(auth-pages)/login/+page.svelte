@@ -66,7 +66,7 @@
 			onfocusin={() => (emailErrors = '')}
 			oninputcapture={() => (emailErrors = '')}
 			type="text"
-			class="rounded border-none bg-inherit p-2 text-lg outline-none ring-1 ring-slate-400/50 transition-all ease-out hover:ring-fuchsia-500 focus-visible:ring-fuchsia-400"
+			class="rounded border-none bg-inherit p-2 text-lg outline-none ring-1 ring-neutral-400/50 transition-all ease-out hover:ring-fuchsia-500 focus-visible:ring-fuchsia-400"
 			name="email"
 		/>
 		<small class="text-rose-500">{emailErrors}</small>
@@ -131,14 +131,14 @@
 			onfocusin={() => (passwordErrors = '')}
 			oninputcapture={() => (passwordErrors = '')}
 			type={passwordInput}
-			class="rounded border-none bg-inherit p-2 text-lg outline-none ring-1 ring-slate-400/50 transition-all ease-out hover:ring-fuchsia-500 focus-visible:ring-fuchsia-400"
+			class="rounded border-none bg-inherit p-2 text-lg outline-none ring-1 ring-neutral-400/50 transition-all ease-out hover:ring-fuchsia-500 focus-visible:ring-fuchsia-400"
 			name="password"
 		/>
 		<small class="text-rose-500">{passwordErrors}</small>
 	</div>
 	<button
 		disabled={isLoading}
-		class="w-fit select-none rounded border-none bg-fuchsia-500 px-6 py-3 text-sm text-slate-900 outline-none ring-fuchsia-500 ring-offset-slate-900 transition-all ease-out hover:bg-fuchsia-500/90 focus-visible:ring-2 focus-visible:ring-offset-2 disabled:animate-pulse disabled:bg-slate-500"
+		class="w-fit select-none rounded border-none bg-fuchsia-500 px-6 py-3 text-sm text-neutral-900 outline-none ring-fuchsia-500 ring-offset-neutral-900 transition-all ease-out hover:bg-fuchsia-500/90 focus-visible:ring-2 focus-visible:ring-offset-2 disabled:animate-pulse disabled:bg-neutral-500"
 	>
 		{#if isLoading}
 			<Loader />

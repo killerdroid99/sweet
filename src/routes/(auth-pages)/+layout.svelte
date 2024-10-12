@@ -1,9 +1,13 @@
 <script>
 	import '$lib/css/globals.css';
 	import Header from '$lib/components/Header.svelte';
+	import Notifications from '$lib/components/Notifications.svelte';
 
 	const { children } = $props();
 </script>
 
 <Header />
-{@render children()}
+<main>
+	{@render children()}
+</main>
+<Notifications />

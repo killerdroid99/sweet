@@ -13,11 +13,15 @@
 }
 
 body {
-	@apply bg-slate-950 text-slate-50;
+	@apply bg-neutral-950 text-neutral-50;
 }
 
 .err-ring {
 	@apply ring-rose-500 hover:ring-rose-600 focus-visible:ring-rose-500;
+}
+
+.sweet {
+	@apply font-semibold;
 }
 
 @layer base {
@@ -92,5 +96,14 @@ body {
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+}
+
+@layer utilities {
+	.selected {
+		@apply h-8 group-hover:h-8;
+	}
+	.not-selected {
+		@apply h-2 group-hover:h-4;
 	}
 }
