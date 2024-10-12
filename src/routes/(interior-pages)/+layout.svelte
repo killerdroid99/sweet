@@ -3,8 +3,10 @@
 	import { user, getCurrentUser } from '$lib/stores/auth.svelte';
 	import { getJoinedServers, serverStore } from '$lib/stores/servers.svelte';
 	import Header from '$lib/components/Header.svelte';
-	import { notifications, pushNotifications } from '$lib/stores/notifications.svelte';
+	import { notifications } from '$lib/stores/notifications.svelte';
 	import Notification from '$lib/components/Notification.svelte';
+	import PolkaDot from '$lib/components/icons/PolkaDot.svelte';
+	import CreateServerForm from '$lib/components/CreateServerForm.svelte';
 
 	let { children } = $props();
 	let isUserLoggedIn = $derived(user.name !== undefined);
@@ -13,24 +15,50 @@
 		getCurrentUser();
 		getJoinedServers();
 	});
+
 	// <button onclick={() => pushNotifications('soul soul soul')}>push</button>
+	let creatingServer = $state(false);
+	$effect(() => {
+		document.addEventListener('keydown', (e) => {
+			if (isUserLoggedIn && creatingServer && e.key === 'Escape') {
+				creatingServer = false;
+			}
+		});
+	});
 </script>
 
 <main>
 	<Header />
+	{#if creatingServer}
+		<CreateServerForm close={() => (creatingServer = false)} />
+	{/if}
+
 	{#if isUserLoggedIn}
 		<div
-			class="col-start-1 col-end-2 row-span-2 flex h-full flex-col gap-3 border-r-2 border-r-slate-900 pl-4 pr-2 pt-3"
+			id="channels-stuff"
+			class="col-start-1 col-end-2 flex flex-col items-center gap-3 border-r-2 border-r-slate-900 pl-4 pr-2 pt-3"
 		>
-			{#each serverStore.serverData as server}
-				<a href={`/${server.serverId}`} data-sveltekit-preload-data="hover">
-					<div
-						class="leading-2 grid h-10 w-10 place-items-center rounded-full bg-indigo-500 p-2 font-mono text-xl font-bold capitalize"
-					>
-						{server.serverName[0]}
-					</div>
-				</a>
-			{/each}
+			<button
+				onclick={() => {
+					creatingServer = true;
+				}}
+				class="ease grid h-10 w-10 place-items-center rounded-xl border-none bg-slate-400/20 text-2xl outline-none transition-all hover:rounded-full hover:bg-emerald-500 focus-visible:ring-2"
+			>
+				<PolkaDot />
+			</button>
+
+			<div class="my-2 h-1 w-5 rounded-full bg-slate-500"></div>
+			<div class="flex flex-col gap-3">
+				{#each serverStore.serverData as server}
+					<a href={`/${server.serverId}`} data-sveltekit-preload-data="hover">
+						<div
+							class="leading-2 grid h-10 w-10 place-items-center rounded-full bg-indigo-500 p-2 font-mono text-xl font-bold capitalize"
+						>
+							{server.serverName[0]}
+						</div>
+					</a>
+				{/each}
+			</div>
 		</div>
 	{/if}
 	{@render children()}
@@ -50,6 +78,9 @@
 		grid-auto-flow: column;
 		grid-auto-columns: 4rem 13rem auto;
 		grid-auto-rows: min-content auto;
-    overflow-y: hidden;
+		overflow-y: hidden;
+	}
+	#channels-stuff {
+		height: calc(100dvh - 3rem);
 	}
 </style>

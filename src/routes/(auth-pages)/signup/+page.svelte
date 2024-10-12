@@ -3,6 +3,7 @@
 	import { getCurrentUser } from '$lib/stores/auth.svelte';
 	import { goto } from '$app/navigation';
 	import { pushNotifications } from '$lib/stores/notifications.svelte';
+	import Loader from '$lib/components/icons/Loader.svelte';
 
 	let showPassword = $state(false);
 	let passwordInput = $derived(showPassword ? 'text' : 'password');
@@ -236,29 +237,13 @@
 	</div>
 
 	<button
-		class:animate-pulse={isLoading}
 		disabled={isLoading}
-		class="w-fit select-none rounded border-none bg-fuchsia-500 px-6 py-3 text-sm text-slate-900 outline-none ring-fuchsia-500 ring-offset-slate-900 transition-all ease-out hover:bg-fuchsia-500/90 focus-visible:ring-2 focus-visible:ring-offset-2"
+		class="w-fit select-none rounded border-none bg-fuchsia-500 px-6 py-3 text-sm text-slate-900 outline-none ring-fuchsia-500 ring-offset-slate-900 transition-all ease-out hover:bg-fuchsia-500/90 focus-visible:ring-2 focus-visible:ring-offset-2 disabled:animate-pulse disabled:bg-slate-500"
 	>
 		{#if isLoading}
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-spin" viewBox="0 0 24 24"
-				><path
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 3a9 9 0 1 0 9 9"
-				/></svg
-			>
+			<Loader />
 		{:else}
 			Submit
 		{/if}
 	</button>
 </form>
-
-<style>
-	.err-ring {
-		@apply ring-rose-500 hover:ring-rose-600;
-	}
-</style>

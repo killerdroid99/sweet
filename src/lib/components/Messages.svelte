@@ -15,6 +15,9 @@
 
 <div class="grid justify-items-end p-2">
 	{#each messages as m, i}
+		{#if !messages[i - 1]}
+			<ChatDate date={new Date(m.createdAt)} />
+		{/if}
 		{#if messages[i - 1] && new Date(messages[i].createdAt).getDate() === new Date(messages[i - 1].createdAt).getDate() + 1}
 			<ChatDate date={new Date(m.createdAt)} />
 		{/if}
